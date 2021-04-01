@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../utils/utils.dart';
 import '../models/models.dart';
+import 'widgets.dart';
 
 class FlippyHalf extends StatelessWidget {
   final Animation<double> animation;
@@ -21,7 +22,7 @@ class FlippyHalf extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        _StaticHalf(
+        StaticHalf(
           type: type,
           child: type == HalfType.top ? next : current,
         ),
@@ -31,24 +32,6 @@ class FlippyHalf extends StatelessWidget {
           child: type == HalfType.top ? current : next,
         ),
       ],
-    );
-  }
-}
-
-class _StaticHalf extends StatelessWidget {
-  final HalfType type;
-  final Widget child;
-
-  const _StaticHalf({required this.type, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRect(
-      child: Align(
-        alignment: type == HalfType.top ? Alignment.topCenter : Alignment.bottomCenter,
-        heightFactor: 0.5,
-        child: child,
-      ),
     );
   }
 }
@@ -71,7 +54,7 @@ class _AnimatedHalf extends StatelessWidget {
 
     return AnimatedBuilder(
       animation: _animation,
-      child: _StaticHalf(type: type, child: child),
+      child: StaticHalf(type: type, child: child),
       builder: (context, builderChild) {
         calculation.update(_animation.value);
 
