@@ -10,7 +10,7 @@ enum FlippyViewStatus { ready, inProgress }
 
 class FlippyView extends StatefulWidget {
   late final FlippyController flippyController;
-  late final Widget Function(BuildContext context, int index) flippyBuilder;
+  late final Widget Function(BuildContext context, int index) widgetBuilder;
   late final Transition Function(int index) transitionBuilder;
   final int count;
   final double gap;
@@ -18,7 +18,7 @@ class FlippyView extends StatefulWidget {
 
   FlippyView.builder({
     required this.flippyController,
-    required this.flippyBuilder,
+    required this.widgetBuilder,
     required this.transitionBuilder,
     required this.count,
     this.gap = 0.0,
@@ -46,7 +46,7 @@ class FlippyView extends StatefulWidget {
       .._count = count
       ..moveNext();
 
-    flippyBuilder = (context, index) => index == 0 ? start : end;
+    widgetBuilder = (context, index) => index == 0 ? start : end;
     transitionBuilder = (index) => transition;
   }
 
@@ -108,14 +108,14 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
       child: Consumer<FlippyController>(
         builder: (context, controller, child) {
           if (controller.status == FlippyViewStatus.ready) {
-            return StaticContainer(child: widget.flippyBuilder(context, controller.current));
+            return StaticContainer(child: widget.widgetBuilder(context, controller.current));
           }
 
           final transition = widget.transitionBuilder(controller.current);
           final animation = _buildAnimation(transition);
 
-          final current = widget.flippyBuilder(context, controller.current);
-          final next = widget.flippyBuilder(context, controller.next);
+          final current = widget.widgetBuilder(context, controller.current);
+          final next = widget.widgetBuilder(context, controller.next);
 
           return FlippyContainer(
             current: transition.direction == FlipDirection.forward ? current : next,
@@ -145,17 +145,35 @@ class FlippyController with ChangeNotifier {
       return;
     }
 
-    _target = _current + 1;
+    _target = current + 1;
   }
 
-  void moveTo(int index) {
-    assert(index > 0);
+  void moveNextN(int n) {
+    assert(n > 0);
 
     if (status != FlippyViewStatus.ready) {
       return;
     }
 
-    _target = _current + index;
+    _target = current + n;
+  }
+
+  void moveTo(int index) {
+    assert(index >= 0);
+
+    if (status != FlippyViewStatus.ready) {
+      return;
+    }
+
+    if (index == current) {
+      return;
+    }
+
+    _target = index - current;
+
+    if (_target < 0) {
+      _target += count;
+    }
   }
 
   void _update() {
