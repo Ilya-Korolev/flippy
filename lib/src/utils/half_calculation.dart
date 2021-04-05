@@ -12,7 +12,6 @@ class HalfCalculation {
   final HalfType _type;
   final AlignmentGeometry _alignment;
 
-  double _animationValue = 0.0;
   double _degree = 0.0;
   double _offset = 0.0;
   bool _isVisible = false;
@@ -27,22 +26,24 @@ class HalfCalculation {
     required double gap,
     required double perspective,
     required HalfType type,
-  })   : _gap = gap,
+  })   : assert(gap >= 0.0),
+        assert(perspective >= 0.0),
+        _gap = gap,
         _perspective = type == HalfType.top ? perspective : -perspective,
         _type = type,
-        _alignment = type == HalfType.top ? Alignment.bottomCenter : Alignment.topCenter;
+        _alignment = type == HalfType.top ? Alignment.bottomCenter : Alignment.topCenter {
+    update(0.0);
+  }
 
   void update(double animationValue) {
-    _animationValue = animationValue;
-
     if (_type == HalfType.top) {
-      _degree = _animationValue;
-      _offset = _gap * degree / math.pi;
+      _degree = animationValue;
+      _offset = (_gap * degree / math.pi).abs();
     } else {
-      _degree = math.pi - _animationValue;
-      _offset = -_gap * degree / math.pi;
+      _degree = math.pi - animationValue;
+      _offset = -(_gap * degree / math.pi).abs();
     }
 
-    _isVisible = degree < _halfPi;
+    _isVisible = -_halfPi < degree && degree < _halfPi;
   }
 }
