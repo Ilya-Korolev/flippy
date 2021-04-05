@@ -159,7 +159,7 @@ class FlippyController with ChangeNotifier {
   }
 
   void moveTo(int index) {
-    assert(index >= 0);
+    assert(0 <= index && index <= count - 1);
 
     if (status != FlippyViewStatus.ready) {
       return;
