@@ -12,7 +12,6 @@ class FlippyView extends StatefulWidget {
   late final FlippyController flippyController;
   late final Widget Function(BuildContext context, int index) widgetBuilder;
   late final Transition Function(int index) transitionBuilder;
-  final int count;
   final double gap;
   final double perspective;
 
@@ -20,16 +19,12 @@ class FlippyView extends StatefulWidget {
     required this.flippyController,
     required this.widgetBuilder,
     required this.transitionBuilder,
-    required this.count,
     this.gap = 0.0,
     this.perspective = 0.0,
     Key? key,
-  })  : assert(count > 0),
-        assert(gap >= 0),
+  })  : assert(gap >= 0),
         assert(perspective >= 0),
-        super(key: key) {
-    flippyController._count = count;
-  }
+        super(key: key);
 
   FlippyView.oneShot({
     required Widget start,
@@ -40,11 +35,8 @@ class FlippyView extends StatefulWidget {
     Key? key,
   })  : assert(gap >= 0),
         assert(perspective >= 0),
-        count = 2,
         super(key: key) {
-    flippyController = FlippyController()
-      .._count = count
-      ..moveNext();
+    flippyController = FlippyController(count: 2)..moveNext();
 
     widgetBuilder = (context, index) => index == 0 ? start : end;
     transitionBuilder = (index) => transition;
@@ -129,9 +121,13 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
 }
 
 class FlippyController with ChangeNotifier {
-  int _count = 0;
+  final int _count;
   int _current = 0;
   int _target = 0;
+
+  FlippyController({required int count})
+      : assert(count > 0),
+        _count = count;
 
   int get count => _count;
   int get current => _current;

@@ -18,8 +18,7 @@ void main() {
         child: FlippyView.builder(
           perspective: 0.002,
           gap: 7.5,
-          count: children.length,
-          flippyController: FlippyController()..moveTo(children.length - 1),
+          flippyController: FlippyController(count: children.length)..moveTo(children.length - 1),
           widgetBuilder: (_, index) => children[index],
           transitionBuilder: (index) => const Transition(duration: Duration(milliseconds: 1000)),
         ),
