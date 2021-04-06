@@ -172,6 +172,13 @@ class FlippyController with ChangeNotifier {
     }
   }
 
+  void setTo(int index) {
+    assert(0 <= index && index <= count - 1);
+
+    _current = index;
+    _target = index;
+  }
+
   void _update() {
     ++_current;
 
