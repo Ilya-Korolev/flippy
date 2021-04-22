@@ -20,7 +20,7 @@ void main() {
           gap: 7.5,
           flippyController: FlippyController(count: children.length)..moveTo(children.length - 1),
           widgetBuilder: (_, index) => children[index],
-          transitionBuilder: (index) => const Transition(duration: Duration(milliseconds: 1000)),
+          transitionBuilder: (index) => const FlippyTransition(duration: Duration(milliseconds: 1000)),
         ),
       ),
     );
@@ -44,7 +44,7 @@ void main() {
           gap: 7.5,
           start: Container(height: 100, width: 100, child: Text('0')),
           end: Container(height: 100, width: 100, child: Text('1')),
-          transition: const Transition(duration: Duration(milliseconds: 1000)),
+          transition: const FlippyTransition(duration: Duration(milliseconds: 1000)),
         ),
       ),
     );

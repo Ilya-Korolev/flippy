@@ -10,7 +10,7 @@ import 'widgets/widgets.dart';
 class FlippyView extends StatefulWidget {
   late final FlippyController flippyController;
   late final Widget Function(BuildContext context, int index) widgetBuilder;
-  late final Transition Function(int index) transitionBuilder;
+  late final FlippyTransition Function(int index) transitionBuilder;
   final double gap;
   final double perspective;
 
@@ -28,7 +28,7 @@ class FlippyView extends StatefulWidget {
   FlippyView.oneShot({
     required Widget start,
     required Widget end,
-    required Transition transition,
+    required FlippyTransition transition,
     this.gap = 0.0,
     this.perspective = 0.0,
     Key? key,
@@ -70,7 +70,7 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Animation<double> _buildAnimation(Transition transition) {
+  Animation<double> _buildAnimation(FlippyTransition transition) {
     _animationController.duration = transition.duration;
     _animationController
       ..reset()
