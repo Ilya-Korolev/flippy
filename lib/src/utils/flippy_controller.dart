@@ -39,6 +39,8 @@ class FlippyControllerInternal with ChangeNotifier implements FlippyController {
     }
 
     _target = current + 1;
+
+    notifyListeners();
   }
 
   void moveNextN(int n) {
@@ -49,6 +51,8 @@ class FlippyControllerInternal with ChangeNotifier implements FlippyController {
     }
 
     _target = current + n;
+
+    notifyListeners();
   }
 
   void moveTo(int index) {
@@ -67,6 +71,8 @@ class FlippyControllerInternal with ChangeNotifier implements FlippyController {
     if (_target < 0) {
       _target += count;
     }
+
+    notifyListeners();
   }
 
   void setTo(int index) {
@@ -74,6 +80,8 @@ class FlippyControllerInternal with ChangeNotifier implements FlippyController {
 
     _current = index;
     _target = index;
+
+    notifyListeners();
   }
 
   void update() {
