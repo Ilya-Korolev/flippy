@@ -25,22 +25,6 @@ class FlippyView extends StatefulWidget {
         assert(perspective >= 0),
         super(key: key);
 
-  FlippyView.oneShot({
-    required Widget start,
-    required Widget end,
-    required FlippyTransition transition,
-    this.gap = 0.0,
-    this.perspective = 0.0,
-    Key? key,
-  })  : assert(gap >= 0),
-        assert(perspective >= 0),
-        super(key: key) {
-    flippyController = FlippyController(count: 2)..moveNext();
-
-    widgetBuilder = (context, index) => index == 0 ? start : end;
-    transitionBuilder = (index) => transition;
-  }
-
   @override
   _FlippyViewState createState() => _FlippyViewState();
 }

@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flippy/flippy.dart';
 
 void main() {
-  testWidgets('FlippyView.builder shows transitions between some widgets one by one', (WidgetTester tester) async {
+  testWidgets('FlippyOneShot.builder shows transitions between some widgets one by one', (WidgetTester tester) async {
     final children = [
       Container(height: 100, width: 100, child: Text('0')),
       Container(height: 100, width: 100, child: Text('1')),
@@ -15,10 +15,10 @@ void main() {
     await tester.pumpWidget(
       Directionality(
         textDirection: TextDirection.ltr,
-        child: FlippyView.builder(
+        child: FlippyOneShot.builder(
           perspective: 0.002,
           gap: 7.5,
-          flippyController: FlippyController(count: children.length)..moveTo(children.length - 1),
+          count: children.length,
           widgetBuilder: (_, index) => children[index],
           transitionBuilder: (index) => const FlippyTransition(duration: Duration(milliseconds: 1000)),
         ),
@@ -33,5 +33,28 @@ void main() {
       final finder = find.text('$i');
       expect(finder, findsWidgets);
     }
+  });
+
+  testWidgets("FlippyOneShot.single shows a transition between two widgets", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: FlippyOneShot.single(
+          perspective: 0.002,
+          gap: 7.5,
+          start: Container(height: 100, width: 100, child: Text('0')),
+          end: Container(height: 100, width: 100, child: Text('1')),
+          transition: const FlippyTransition(duration: Duration(milliseconds: 1000)),
+        ),
+      ),
+    );
+
+    final text0 = find.text('0');
+    expect(text0, findsWidgets);
+
+    await tester.pump(Duration(milliseconds: 1001));
+
+    final text1 = find.text('1');
+    expect(text1, findsWidgets);
   });
 }
