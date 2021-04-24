@@ -19,27 +19,8 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: BlocProvider<ClockCubit>(
           create: (context) => ClockCubit(clockwork: Clockwork())..wind(DateTime.now()),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                ClockDigit(type: ClockDigitType.hourFirst),
-                SizedBox(width: 25.0),
-                ClockDigit(type: ClockDigitType.hourLast),
-                SizedBox(width: 17.5),
-                ClockColon(),
-                SizedBox(width: 17.5),
-                ClockDigit(type: ClockDigitType.minuteFirst),
-                SizedBox(width: 25.0),
-                ClockDigit(type: ClockDigitType.minuteLast),
-                SizedBox(width: 17.5),
-                ClockColon(),
-                SizedBox(width: 17.5),
-                ClockDigit(type: ClockDigitType.secondFirst),
-                SizedBox(width: 25.0),
-                ClockDigit(type: ClockDigitType.secondLast),
-              ],
-            ),
+          child: const Center(
+            child: Clock(),
           ),
         ),
       ),
