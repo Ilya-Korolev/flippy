@@ -1,0 +1,27 @@
+name: flip_clock
+description: An example Flutter project.
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_bloc: ^7.0.0
+  equatable: ^2.0.0
+  google_fonts: ^2.0.0
+
+  flippy:
+    path: ../../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

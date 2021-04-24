@@ -5,16 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "flutter_clock debug",
-            "cwd": "examples\\flutter_clock",
+            "name": "flip_clock debug",
+            "cwd": "examples\\flip_clock",
             "program": "lib\\main.dart",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
         },
         {
-            "name": "flutter_clock profile",
-            "cwd": "examples\\flutter_clock",
+            "name": "flip_clock profile",
+            "cwd": "examples\\flip_clock",
             "program": "lib\\main.dart",
             "request": "launch",
             "type": "dart",
