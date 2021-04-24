@@ -6,28 +6,28 @@ import 'package:flip_clock/widgets/text_card.dart';
 
 import '../constants.dart' as constants;
 
-enum ClockPartType {
-  hourFirstDigit,
-  hourLastDigit,
-  minuteFirstDigit,
-  minuteLastDigit,
-  secondFirstDigit,
-  secondLastDigit,
+enum ClockDigitType {
+  hourFirst,
+  hourLast,
+  minuteFirst,
+  minuteLast,
+  secondFirst,
+  secondLast,
 }
 
-class ClockPart extends StatefulWidget {
-  final ClockPartType type;
+class ClockDigit extends StatefulWidget {
+  final ClockDigitType type;
 
-  const ClockPart({
+  const ClockDigit({
     required this.type,
     Key? key,
   }) : super(key: key);
 
   @override
-  _ClockPartState createState() => _ClockPartState();
+  _ClockDigitState createState() => _ClockDigitState();
 }
 
-class _ClockPartState extends State<ClockPart> {
+class _ClockDigitState extends State<ClockDigit> {
   late final FlippyController _flippyController;
 
   @override
@@ -82,44 +82,44 @@ class _ClockPartState extends State<ClockPart> {
     final nextTime = current.time.add(Duration(seconds: 1));
 
     switch (widget.type) {
-      case ClockPartType.hourFirstDigit:
+      case ClockDigitType.hourFirst:
         return currentTime.hour ~/ 10 != nextTime.hour ~/ 10;
 
-      case ClockPartType.hourLastDigit:
+      case ClockDigitType.hourLast:
         return currentTime.hour != nextTime.hour;
 
-      case ClockPartType.minuteFirstDigit:
+      case ClockDigitType.minuteFirst:
         return currentTime.minute ~/ 10 != nextTime.minute ~/ 10;
 
-      case ClockPartType.minuteLastDigit:
+      case ClockDigitType.minuteLast:
         return currentTime.minute != nextTime.minute;
 
-      case ClockPartType.secondFirstDigit:
+      case ClockDigitType.secondFirst:
         return currentTime.second ~/ 10 != nextTime.second ~/ 10;
 
-      case ClockPartType.secondLastDigit:
+      case ClockDigitType.secondLast:
         return currentTime.second != nextTime.second;
     }
   }
 
   String _timeToString(DateTime time) {
     switch (widget.type) {
-      case ClockPartType.hourFirstDigit:
+      case ClockDigitType.hourFirst:
         return (time.hour ~/ 10).toString();
 
-      case ClockPartType.hourLastDigit:
+      case ClockDigitType.hourLast:
         return (time.hour % 10).toString();
 
-      case ClockPartType.minuteFirstDigit:
+      case ClockDigitType.minuteFirst:
         return (time.minute ~/ 10).toString();
 
-      case ClockPartType.minuteLastDigit:
+      case ClockDigitType.minuteLast:
         return (time.minute % 10).toString();
 
-      case ClockPartType.secondFirstDigit:
+      case ClockDigitType.secondFirst:
         return (time.second ~/ 10).toString();
 
-      case ClockPartType.secondLastDigit:
+      case ClockDigitType.secondLast:
         return (time.second % 10).toString();
     }
   }
