@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flip_clock/constants.dart';
 
-class Colon extends StatelessWidget {
-  const Colon({Key? key}) : super(key: key);
+class ClockColon extends StatelessWidget {
+  const ClockColon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
