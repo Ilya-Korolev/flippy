@@ -47,17 +47,17 @@ class _ClockDigitState extends State<ClockDigit> {
     return BlocBuilder<ClockCubit, ClockState>(
       buildWhen: _buildWhen,
       builder: (context, state) {
-        final currentPartOfTime = _timeToString(state.time);
+        final currentDigit = _getDigit(state.time);
 
         if (state is ClockStopped) {
           return FlippyStatic(
             gap: constants.kGap,
             perspective: constants.kPerspective,
-            child: TextCard(text: currentPartOfTime),
+            child: TextCard(text: currentDigit),
           );
         }
 
-        final nextPartOfTime = _timeToString(state.time.add(const Duration(seconds: 1)));
+        final nextDigit = _getDigit(state.time.add(const Duration(seconds: 1)));
 
         _flippyController.setTo(0);
         _flippyController.moveNext();
@@ -66,8 +66,7 @@ class _ClockDigitState extends State<ClockDigit> {
           gap: constants.kGap,
           perspective: constants.kPerspective,
           flippyController: _flippyController,
-          widgetBuilder: (context, index) =>
-              index == 0 ? TextCard(text: currentPartOfTime) : TextCard(text: nextPartOfTime),
+          widgetBuilder: (context, index) => index == 0 ? TextCard(text: currentDigit) : TextCard(text: nextDigit),
           transitionBuilder: (index) => const FlippyTransition(
             curve: Curves.decelerate,
             duration: Duration(seconds: 1),
@@ -102,7 +101,7 @@ class _ClockDigitState extends State<ClockDigit> {
     }
   }
 
-  String _timeToString(DateTime time) {
+  String _getDigit(DateTime time) {
     switch (widget.type) {
       case ClockDigitType.hourFirst:
         return (time.hour ~/ 10).toString();
