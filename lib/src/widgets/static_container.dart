@@ -15,19 +15,16 @@ class StaticContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final params = context.read<GlobalParameters>();
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        StaticHalf(
-          child: child,
-          type: HalfType.top,
-        ),
-        SizedBox(height: params.gap),
-        StaticHalf(
-          child: child,
-          type: HalfType.bottom,
-        ),
-      ],
+    return Split(
+      spacing: params.gap,
+      topHalf: StaticHalf(
+        child: child,
+        type: HalfType.top,
+      ),
+      bottomHalf: StaticHalf(
+        child: child,
+        type: HalfType.bottom,
+      ),
     );
   }
 }

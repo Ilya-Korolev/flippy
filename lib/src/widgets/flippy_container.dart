@@ -19,23 +19,20 @@ class FlippyContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final params = context.read<GlobalParameters>();
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        FlippyHalf(
-          animation: animation,
-          current: current,
-          next: next,
-          type: HalfType.top,
-        ),
-        SizedBox(height: params.gap),
-        FlippyHalf(
-          animation: animation,
-          current: current,
-          next: next,
-          type: HalfType.bottom,
-        ),
-      ],
+    return Split(
+      spacing: params.gap,
+      topHalf: FlippyHalf(
+        animation: animation,
+        current: current,
+        next: next,
+        type: HalfType.top,
+      ),
+      bottomHalf: FlippyHalf(
+        animation: animation,
+        current: current,
+        next: next,
+        type: HalfType.bottom,
+      ),
     );
   }
 }
