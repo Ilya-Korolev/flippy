@@ -140,7 +140,7 @@ class RenderSplit extends RenderBox
 
     final size = Size(
       math.max(topHalfSize.width, bottomHalfSize.width),
-      topHalfSize.height + spacing + bottomHalfSize.height,
+      math.min(constraints.maxHeight, topHalfSize.height + spacing + bottomHalfSize.height),
     );
 
     return size;
