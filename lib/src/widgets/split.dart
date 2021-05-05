@@ -131,8 +131,10 @@ class RenderSplit extends RenderBox
     final bottomHalf = lastChild!;
 
     final halfMaxSize = BoxConstraints(
-      maxHeight: constraints.maxHeight - spacing,
+      maxHeight: constraints.maxHeight < spacing ? constraints.maxHeight : constraints.maxHeight - spacing,
+      minHeight: constraints.minHeight < spacing ? constraints.minHeight : constraints.minHeight - spacing,
       maxWidth: constraints.maxWidth,
+      minWidth: constraints.minWidth,
     );
 
     final topHalfSize = _layoutChild(topHalf, constraints: halfMaxSize, dry: dry);
