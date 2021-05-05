@@ -78,6 +78,10 @@ class FlippyControllerInternal with ChangeNotifier implements FlippyController {
   void setTo(int index) {
     assert(0 <= index && index <= count - 1);
 
+    if (index == current) {
+      return;
+    }
+
     _current = index;
     _target = index;
 
