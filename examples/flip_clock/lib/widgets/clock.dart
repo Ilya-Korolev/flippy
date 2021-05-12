@@ -3,30 +3,79 @@ import 'package:flutter/material.dart';
 import 'widgets.dart';
 
 class Clock extends StatelessWidget {
-  const Clock({Key? key}) : super(key: key);
+  final double height;
+  final double width;
+  final double colonSize;
+  final double digitSize;
+  final double digitSpacing;
+  final double digitPerspective;
+
+  const Clock({
+    required this.height,
+    required this.width,
+    required this.colonSize,
+    required this.digitSize,
+    this.digitSpacing = 0.0,
+    this.digitPerspective = 0.0,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: const [
-        ClockDigit(type: ClockDigitType.hourFirst),
-        SizedBox(width: 25.0),
-        ClockDigit(type: ClockDigitType.hourLast),
-        SizedBox(width: 17.5),
-        ClockColon(),
-        SizedBox(width: 17.5),
-        ClockDigit(type: ClockDigitType.minuteFirst),
-        SizedBox(width: 25.0),
-        ClockDigit(type: ClockDigitType.minuteLast),
-        SizedBox(width: 17.5),
-        ClockColon(),
-        SizedBox(width: 17.5),
-        ClockDigit(type: ClockDigitType.secondFirst),
-        SizedBox(width: 25.0),
-        ClockDigit(type: ClockDigitType.secondLast),
-      ],
+    return SizedBox(
+      height: height,
+      width: width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ClockDigit(
+            size: digitSize,
+            spacing: digitSpacing,
+            perspective: digitPerspective,
+            type: ClockDigitType.hourFirst,
+          ),
+          Spacer(flex: 3),
+          ClockDigit(
+            size: digitSize,
+            spacing: digitSpacing,
+            perspective: digitPerspective,
+            type: ClockDigitType.hourLast,
+          ),
+          Spacer(flex: 2),
+          ClockColon(size: colonSize),
+          Spacer(flex: 2),
+          ClockDigit(
+            size: digitSize,
+            spacing: digitSpacing,
+            perspective: digitPerspective,
+            type: ClockDigitType.minuteFirst,
+          ),
+          Spacer(flex: 3),
+          ClockDigit(
+            size: digitSize,
+            spacing: digitSpacing,
+            perspective: digitPerspective,
+            type: ClockDigitType.minuteLast,
+          ),
+          Spacer(flex: 2),
+          ClockColon(size: colonSize),
+          Spacer(flex: 2),
+          ClockDigit(
+            size: digitSize,
+            spacing: digitSpacing,
+            perspective: digitPerspective,
+            type: ClockDigitType.secondFirst,
+          ),
+          Spacer(flex: 3),
+          ClockDigit(
+            size: digitSize,
+            spacing: digitSpacing,
+            perspective: digitPerspective,
+            type: ClockDigitType.secondLast,
+          ),
+        ],
+      ),
     );
   }
 }

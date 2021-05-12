@@ -16,10 +16,16 @@ enum ClockDigitType {
 }
 
 class ClockDigit extends StatefulWidget {
+  final double size;
   final ClockDigitType type;
+  final double spacing;
+  final double perspective;
 
   const ClockDigit({
+    required this.size,
     required this.type,
+    this.spacing = 0.0,
+    this.perspective = 0.0,
     Key? key,
   }) : super(key: key);
 
@@ -51,9 +57,11 @@ class _ClockDigitState extends State<ClockDigit> {
 
         if (state is ClockStopped) {
           return FlippyStatic(
-            gap: constants.kGap,
-            perspective: constants.kPerspective,
-            child: TextCard(text: currentDigit),
+            gap: widget.spacing,
+            child: TextCard(
+              text: currentDigit,
+              textSize: widget.size,
+            ),
           );
         }
 
@@ -63,10 +71,20 @@ class _ClockDigitState extends State<ClockDigit> {
         _flippyController.moveNext();
 
         return FlippyView.builder(
-          gap: constants.kGap,
-          perspective: constants.kPerspective,
+          gap: widget.spacing,
+          perspective: widget.perspective,
           flippyController: _flippyController,
-          widgetBuilder: (context, index) => index == 0 ? TextCard(text: currentDigit) : TextCard(text: nextDigit),
+          widgetBuilder: (context, index) {
+            return index == 0
+                ? TextCard(
+                    text: currentDigit,
+                    textSize: widget.size,
+                  )
+                : TextCard(
+                    text: nextDigit,
+                    textSize: widget.size,
+                  );
+          },
           transitionBuilder: (index) => const FlippyTransition(
             curve: Curves.decelerate,
             duration: Duration(seconds: 1),

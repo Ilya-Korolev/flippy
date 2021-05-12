@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
 
 class TextCard extends StatelessWidget {
+  final double textSize;
   final String text;
 
   const TextCard({
+    required this.textSize,
     required this.text,
     Key? key,
   }) : super(key: key);
@@ -19,7 +21,7 @@ class TextCard extends StatelessWidget {
       child: Text(
         text,
         style: GoogleFonts.inconsolata(
-          fontSize: 200,
+          fontSize: textSize,
           fontWeight: FontWeight.w300,
           color: kSecondaryColor,
         ),
