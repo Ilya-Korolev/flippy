@@ -31,10 +31,16 @@ class FlippyView extends StatefulWidget {
 
 class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
   late final AnimationController _animationController;
+  late final GlobalParameters _globalParameters;
 
   @override
   void initState() {
     super.initState();
+
+    _globalParameters = GlobalParameters(
+      gap: widget.gap,
+      perspective: widget.perspective,
+    );
 
     _animationController = AnimationController(vsync: this);
 
@@ -48,8 +54,19 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
   }
 
   @override
+  void didUpdateWidget(covariant FlippyView oldWidget) {
+    _globalParameters.update(
+      gap: widget.gap,
+      perspective: widget.perspective,
+    );
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void dispose() {
     _animationController.dispose();
+    _globalParameters.dispose();
 
     super.dispose();
   }
@@ -75,8 +92,8 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<GlobalParameters>(
-          create: (context) => GlobalParameters(gap: widget.gap, perspective: widget.perspective),
+        ChangeNotifierProvider<GlobalParameters>.value(
+          value: _globalParameters,
         ),
         ChangeNotifierProvider<FlippyController>.value(
           value: widget.flippyController,

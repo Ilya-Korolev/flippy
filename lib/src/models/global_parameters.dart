@@ -1,9 +1,22 @@
-class GlobalParameters {
-  final double gap;
-  final double perspective;
+import 'package:flutter/widgets.dart';
+
+class GlobalParameters extends ChangeNotifier {
+  double _gap;
+  double _perspective;
+
+  double get gap => _gap;
+  double get perspective => _perspective;
 
   GlobalParameters({
-    required this.gap,
-    required this.perspective,
-  });
+    required double gap,
+    required double perspective,
+  })   : _gap = gap,
+        _perspective = perspective;
+
+  void update({required double gap, required double perspective}) {
+    _gap = gap;
+    _perspective = perspective;
+
+    notifyListeners();
+  }
 }
