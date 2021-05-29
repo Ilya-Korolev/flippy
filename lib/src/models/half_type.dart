@@ -1,1 +1,0 @@
-enum HalfType { top, bottom }
