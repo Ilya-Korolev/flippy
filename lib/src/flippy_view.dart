@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,16 +29,10 @@ class FlippyView extends StatefulWidget {
 
 class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
   late final AnimationController _animationController;
-  late final GlobalParameters _globalParameters;
 
   @override
   void initState() {
     super.initState();
-
-    _globalParameters = GlobalParameters(
-      gap: widget.gap,
-      perspective: widget.perspective,
-    );
 
     _animationController = AnimationController(vsync: this);
 
@@ -54,19 +46,8 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(covariant FlippyView oldWidget) {
-    _globalParameters.update(
-      gap: widget.gap,
-      perspective: widget.perspective,
-    );
-
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   void dispose() {
     _animationController.dispose();
-    _globalParameters.dispose();
 
     super.dispose();
   }
@@ -80,29 +61,20 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
     final curved = CurvedAnimation(parent: _animationController, curve: transition.curve);
     final directed = transition.direction == FlipDirection.forward ? curved : ReverseAnimation(curved);
 
-    final tween = Tween<double>(
-      begin: 0.0,
-      end: math.pi,
-    ).animate(directed);
-
-    return tween;
+    return directed;
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<GlobalParameters>.value(
-          value: _globalParameters,
-        ),
-        ChangeNotifierProvider<FlippyController>.value(
-          value: widget.flippyController,
-        ),
-      ],
+    return ChangeNotifierProvider<FlippyController>.value(
+      value: widget.flippyController,
       child: Consumer<FlippyController>(
         builder: (context, controller, child) {
           if (controller.status == FlippyViewStatus.ready) {
-            return StaticSplit(child: widget.widgetBuilder(context, controller.current), spacing: widget.gap);
+            return StaticSplit(
+              child: widget.widgetBuilder(context, controller.current),
+              spacing: widget.gap,
+            );
           }
 
           final transition = widget.transitionBuilder(controller.current);
@@ -111,10 +83,15 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
           final current = widget.widgetBuilder(context, controller.current);
           final next = widget.widgetBuilder(context, controller.next);
 
-          return FlippyContainer(
-            current: transition.direction == FlipDirection.forward ? current : next,
-            next: transition.direction == FlipDirection.forward ? next : current,
+          return AnimatedBuilder(
             animation: animation,
+            builder: (context, child) => SplitFlap(
+              current: transition.direction == FlipDirection.forward ? current : next,
+              next: transition.direction == FlipDirection.forward ? next : current,
+              spacing: widget.gap,
+              perspective: widget.perspective,
+              animationValue: animation.value,
+            ),
           );
         },
       ),
