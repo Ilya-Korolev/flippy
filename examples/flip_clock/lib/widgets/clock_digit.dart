@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flip_clock/cubit/clock_cubit.dart';
 import 'package:flip_clock/widgets/text_card.dart';
 
-import '../constants.dart' as constants;
-
 enum ClockDigitType {
   hourFirst,
   hourLast,
@@ -20,12 +18,14 @@ class ClockDigit extends StatefulWidget {
   final ClockDigitType type;
   final double spacing;
   final double perspective;
+  final double borderRadius;
 
   const ClockDigit({
     required this.size,
     required this.type,
     this.spacing = 0.0,
     this.perspective = 0.0,
+    this.borderRadius = 0.0,
     Key? key,
   }) : super(key: key);
 
@@ -61,6 +61,7 @@ class _ClockDigitState extends State<ClockDigit> {
             child: TextCard(
               text: currentDigit,
               textSize: widget.size,
+              borderRadius: widget.borderRadius,
             ),
           );
         }
@@ -79,10 +80,12 @@ class _ClockDigitState extends State<ClockDigit> {
                 ? TextCard(
                     text: currentDigit,
                     textSize: widget.size,
+                    borderRadius: widget.borderRadius,
                   )
                 : TextCard(
                     text: nextDigit,
                     textSize: widget.size,
+                    borderRadius: widget.borderRadius,
                   );
           },
           transitionBuilder: (index) => const FlippyTransition(

@@ -6,10 +6,12 @@ import '../constants.dart';
 class TextCard extends StatelessWidget {
   final double textSize;
   final String text;
+  final double borderRadius;
 
   const TextCard({
     required this.textSize,
     required this.text,
+    this.borderRadius = 0.0,
     Key? key,
   }) : super(key: key);
 
@@ -26,9 +28,9 @@ class TextCard extends StatelessWidget {
           color: kSecondaryColor,
         ),
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: kPrimaryColor,
-        borderRadius: kBorderRadius,
+        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
       ),
     );
   }

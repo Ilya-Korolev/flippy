@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
                     digitSize: 45.0,
                     digitSpacing: 2.5,
                     digitPerspective: 0.007,
+                    borderRadius: 2.5,
                   ),
                 );
               }
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
                     digitSize: 100.0,
                     digitSpacing: 3.5,
                     digitPerspective: 0.0035,
+                    borderRadius: 3.5,
                   ),
                 );
               }
@@ -56,6 +58,7 @@ class MyApp extends StatelessWidget {
                     digitSize: 170.0,
                     digitSpacing: 5.5,
                     digitPerspective: 0.002,
+                    borderRadius: 5.0,
                   ),
                 );
               }
@@ -68,6 +71,7 @@ class MyApp extends StatelessWidget {
                   digitSize: 290.0,
                   digitSpacing: 7.5,
                   digitPerspective: 0.0007,
+                  borderRadius: 7.5,
                 ),
               );
             },

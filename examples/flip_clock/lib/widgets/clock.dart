@@ -9,6 +9,7 @@ class Clock extends StatelessWidget {
   final double digitSize;
   final double digitSpacing;
   final double digitPerspective;
+  final double borderRadius;
 
   const Clock({
     required this.height,
@@ -17,6 +18,7 @@ class Clock extends StatelessWidget {
     required this.digitSize,
     this.digitSpacing = 0.0,
     this.digitPerspective = 0.0,
+    this.borderRadius = 0.0,
     Key? key,
   }) : super(key: key);
 
@@ -33,6 +35,7 @@ class Clock extends StatelessWidget {
             size: digitSize,
             spacing: digitSpacing,
             perspective: digitPerspective,
+            borderRadius: borderRadius,
             type: ClockDigitType.hourFirst,
           ),
           Spacer(flex: 3),
@@ -40,15 +43,20 @@ class Clock extends StatelessWidget {
             size: digitSize,
             spacing: digitSpacing,
             perspective: digitPerspective,
+            borderRadius: borderRadius,
             type: ClockDigitType.hourLast,
           ),
           Spacer(flex: 2),
-          ClockColon(size: colonSize),
+          ClockColon(
+            size: colonSize,
+            borderRadius: borderRadius,
+          ),
           Spacer(flex: 2),
           ClockDigit(
             size: digitSize,
             spacing: digitSpacing,
             perspective: digitPerspective,
+            borderRadius: borderRadius,
             type: ClockDigitType.minuteFirst,
           ),
           Spacer(flex: 3),
@@ -56,15 +64,20 @@ class Clock extends StatelessWidget {
             size: digitSize,
             spacing: digitSpacing,
             perspective: digitPerspective,
+            borderRadius: borderRadius,
             type: ClockDigitType.minuteLast,
           ),
           Spacer(flex: 2),
-          ClockColon(size: colonSize),
+          ClockColon(
+            size: colonSize,
+            borderRadius: borderRadius,
+          ),
           Spacer(flex: 2),
           ClockDigit(
             size: digitSize,
             spacing: digitSpacing,
             perspective: digitPerspective,
+            borderRadius: borderRadius,
             type: ClockDigitType.secondFirst,
           ),
           Spacer(flex: 3),
@@ -72,6 +85,7 @@ class Clock extends StatelessWidget {
             size: digitSize,
             spacing: digitSpacing,
             perspective: digitPerspective,
+            borderRadius: borderRadius,
             type: ClockDigitType.secondLast,
           ),
         ],
