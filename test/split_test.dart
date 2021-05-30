@@ -3,11 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flippy/flippy.dart';
 
 void main() {
-  testWidgets("FlippyStatic shows the child widget", (WidgetTester tester) async {
+  testWidgets("Split shows a child widget", (WidgetTester tester) async {
     await tester.pumpWidget(
       Directionality(
         textDirection: TextDirection.ltr,
-        child: FlippyStatic(
+        child: Split(
           spacing: 7.5,
           child: Container(height: 100, width: 100, child: Text('0')),
         ),

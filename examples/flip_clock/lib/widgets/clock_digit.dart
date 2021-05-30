@@ -51,7 +51,7 @@ class _ClockDigitState extends State<ClockDigit> {
           final currentDigit = _getDigit(state.time);
 
           if (state is ClockStopped) {
-            return FlippyStatic(
+            return Split(
               spacing: params.digitSpacing,
               child: TextCard(text: currentDigit),
             );
