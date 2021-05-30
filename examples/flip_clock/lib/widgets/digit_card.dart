@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
-class TextCard extends StatelessWidget {
+class DigitCard extends StatelessWidget {
   final String text;
 
-  const TextCard({
+  const DigitCard({
     required this.text,
     Key? key,
   }) : super(key: key);

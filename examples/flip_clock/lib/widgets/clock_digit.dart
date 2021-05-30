@@ -3,7 +3,7 @@ import 'package:flippy/flippy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flip_clock/cubit/clock_cubit.dart';
-import 'package:flip_clock/widgets/text_card.dart';
+import 'package:flip_clock/widgets/digit_card.dart';
 import 'package:provider/provider.dart';
 
 enum ClockDigitType {
@@ -53,7 +53,7 @@ class _ClockDigitState extends State<ClockDigit> {
           if (state is ClockStopped) {
             return Split(
               spacing: params.digitSpacing,
-              child: TextCard(text: currentDigit),
+              child: DigitCard(text: currentDigit),
             );
           }
 
@@ -67,7 +67,7 @@ class _ClockDigitState extends State<ClockDigit> {
             perspective: params.digitPerspective,
             flippyController: _flippyController,
             widgetBuilder: (context, index) {
-              return index == 0 ? TextCard(text: currentDigit) : TextCard(text: nextDigit);
+              return index == 0 ? DigitCard(text: currentDigit) : DigitCard(text: nextDigit);
             },
             transitionBuilder: (index) => const FlippyTransition(
               curve: Curves.decelerate,
