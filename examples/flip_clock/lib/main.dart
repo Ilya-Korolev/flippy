@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'clockwork.dart';
+import 'utils/utils.dart';
 import 'constants.dart';
 import 'cubit/clock_cubit.dart';
 import 'widgets/widgets.dart';
