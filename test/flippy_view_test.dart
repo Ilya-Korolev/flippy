@@ -17,7 +17,7 @@ void main() {
         textDirection: TextDirection.ltr,
         child: FlippyView.builder(
           perspective: 0.002,
-          gap: 7.5,
+          spacing: 7.5,
           flippyController: FlippyController(count: children.length)..moveTo(children.length - 1),
           widgetBuilder: (_, index) => children[index],
           transitionBuilder: (index) => const FlippyTransition(duration: Duration(milliseconds: 1000)),

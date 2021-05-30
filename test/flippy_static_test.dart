@@ -8,7 +8,7 @@ void main() {
       Directionality(
         textDirection: TextDirection.ltr,
         child: FlippyStatic(
-          gap: 7.5,
+          spacing: 7.5,
           child: Container(height: 100, width: 100, child: Text('0')),
         ),
       ),

@@ -52,7 +52,7 @@ class _ClockDigitState extends State<ClockDigit> {
 
           if (state is ClockStopped) {
             return FlippyStatic(
-              gap: params.digitSpacing,
+              spacing: params.digitSpacing,
               child: TextCard(text: currentDigit),
             );
           }
@@ -63,7 +63,7 @@ class _ClockDigitState extends State<ClockDigit> {
           _flippyController.moveNext();
 
           return FlippyView.builder(
-            gap: params.digitSpacing,
+            spacing: params.digitSpacing,
             perspective: params.digitPerspective,
             flippyController: _flippyController,
             widgetBuilder: (context, index) {

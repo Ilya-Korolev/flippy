@@ -9,17 +9,17 @@ class FlippyView extends StatefulWidget {
   late final FlippyController flippyController;
   late final Widget Function(BuildContext context, int index) widgetBuilder;
   late final FlippyTransition Function(int index) transitionBuilder;
-  final double gap;
+  final double spacing;
   final double perspective;
 
   FlippyView.builder({
     required this.flippyController,
     required this.widgetBuilder,
     required this.transitionBuilder,
-    this.gap = 0.0,
+    this.spacing = 0.0,
     this.perspective = 0.0,
     Key? key,
-  })  : assert(gap >= 0),
+  })  : assert(spacing >= 0),
         assert(perspective >= 0),
         super(key: key);
 
@@ -73,7 +73,7 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
           if (controller.status == FlippyViewStatus.ready) {
             return StaticSplit(
               child: widget.widgetBuilder(context, controller.current),
-              spacing: widget.gap,
+              spacing: widget.spacing,
             );
           }
 
@@ -88,7 +88,7 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
             builder: (context, child) => SplitFlap(
               current: transition.direction == FlipDirection.forward ? current : next,
               next: transition.direction == FlipDirection.forward ? next : current,
-              spacing: widget.gap,
+              spacing: widget.spacing,
               perspective: widget.perspective,
               animationValue: animation.value,
             ),
