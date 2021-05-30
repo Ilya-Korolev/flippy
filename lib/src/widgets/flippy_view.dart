@@ -1,9 +1,8 @@
+import 'package:flippy/src/models/models.dart';
+import 'package:flippy/src/utils/utils.dart';
+import 'package:flippy/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'models/models.dart';
-import 'utils/utils.dart';
-import 'widgets/widgets.dart';
 
 class FlippyView extends StatefulWidget {
   late final FlippyController flippyController;
