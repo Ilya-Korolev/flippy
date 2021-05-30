@@ -1,8 +1,10 @@
+import 'package:flip_clock/models/models.dart';
 import 'package:flippy/flippy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flip_clock/cubit/clock_cubit.dart';
 import 'package:flip_clock/widgets/text_card.dart';
+import 'package:provider/provider.dart';
 
 enum ClockDigitType {
   hourFirst,
@@ -14,18 +16,10 @@ enum ClockDigitType {
 }
 
 class ClockDigit extends StatefulWidget {
-  final double size;
   final ClockDigitType type;
-  final double spacing;
-  final double perspective;
-  final double borderRadius;
 
   const ClockDigit({
-    required this.size,
     required this.type,
-    this.spacing = 0.0,
-    this.perspective = 0.0,
-    this.borderRadius = 0.0,
     Key? key,
   }) : super(key: key);
 
@@ -50,50 +44,38 @@ class _ClockDigitState extends State<ClockDigit> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ClockCubit, ClockState>(
-      buildWhen: _buildWhen,
-      builder: (context, state) {
-        final currentDigit = _getDigit(state.time);
+    return Consumer<ClockParams>(
+      builder: (context, params, _) => BlocBuilder<ClockCubit, ClockState>(
+        buildWhen: _buildWhen,
+        builder: (context, state) {
+          final currentDigit = _getDigit(state.time);
 
-        if (state is ClockStopped) {
-          return FlippyStatic(
-            gap: widget.spacing,
-            child: TextCard(
-              text: currentDigit,
-              textSize: widget.size,
-              borderRadius: widget.borderRadius,
+          if (state is ClockStopped) {
+            return FlippyStatic(
+              gap: params.digitSpacing,
+              child: TextCard(text: currentDigit),
+            );
+          }
+
+          final nextDigit = _getDigit(state.time.add(const Duration(seconds: 1)));
+
+          _flippyController.setTo(0);
+          _flippyController.moveNext();
+
+          return FlippyView.builder(
+            gap: params.digitSpacing,
+            perspective: params.digitPerspective,
+            flippyController: _flippyController,
+            widgetBuilder: (context, index) {
+              return index == 0 ? TextCard(text: currentDigit) : TextCard(text: nextDigit);
+            },
+            transitionBuilder: (index) => const FlippyTransition(
+              curve: Curves.decelerate,
+              duration: Duration(seconds: 1),
             ),
           );
-        }
-
-        final nextDigit = _getDigit(state.time.add(const Duration(seconds: 1)));
-
-        _flippyController.setTo(0);
-        _flippyController.moveNext();
-
-        return FlippyView.builder(
-          gap: widget.spacing,
-          perspective: widget.perspective,
-          flippyController: _flippyController,
-          widgetBuilder: (context, index) {
-            return index == 0
-                ? TextCard(
-                    text: currentDigit,
-                    textSize: widget.size,
-                    borderRadius: widget.borderRadius,
-                  )
-                : TextCard(
-                    text: nextDigit,
-                    textSize: widget.size,
-                    borderRadius: widget.borderRadius,
-                  );
-          },
-          transitionBuilder: (index) => const FlippyTransition(
-            curve: Curves.decelerate,
-            duration: Duration(seconds: 1),
-          ),
-        );
-      },
+        },
+      ),
     );
   }
 

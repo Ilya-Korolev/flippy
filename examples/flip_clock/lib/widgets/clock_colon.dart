@@ -1,53 +1,47 @@
+import 'package:flip_clock/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_clock/constants.dart';
+import 'package:provider/provider.dart';
 
 class ClockColon extends StatelessWidget {
-  final double size;
-  final double borderRadius;
-
   const ClockColon({
-    required this.size,
-    this.borderRadius = 0.0,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _Dot(
-          size: size,
-          borderRadius: borderRadius,
-        ),
-        SizedBox(height: size * 2.0),
-        _Dot(
-          size: size,
-          borderRadius: borderRadius,
-        ),
-      ],
+    return Consumer<ClockParams>(
+      builder: (context, params, _) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const _Dot(),
+            SizedBox(height: params.colonSize * 2.0),
+            const _Dot(),
+          ],
+        );
+      },
     );
   }
 }
 
 class _Dot extends StatelessWidget {
-  final double size;
-  final double borderRadius;
-
   const _Dot({
-    required this.size,
-    this.borderRadius = 0.0,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: kPrimaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+    return Consumer<ClockParams>(
+      builder: (context, params, _) => Container(
+        width: params.colonSize,
+        height: params.colonSize,
+        decoration: BoxDecoration(
+          color: kPrimaryColor,
+          borderRadius: BorderRadius.all(
+            Radius.circular(params.colonSize),
+          ),
+        ),
       ),
     );
   }
