@@ -3,11 +3,11 @@ import 'dart:math' as math;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-class StaticSplit extends SingleChildRenderObjectWidget {
+class Split extends SingleChildRenderObjectWidget {
   final Widget child;
   final double spacing;
 
-  const StaticSplit({
+  const Split({
     required this.child,
     this.spacing = 0.0,
     Key? key,
@@ -15,17 +15,17 @@ class StaticSplit extends SingleChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return RenderStaticSplit(spacing: spacing);
+    return RenderSplit(spacing: spacing);
   }
 
   @override
-  void updateRenderObject(BuildContext context, RenderStaticSplit renderObject) {
+  void updateRenderObject(BuildContext context, RenderSplit renderObject) {
     renderObject..spacing = spacing;
   }
 }
 
-class RenderStaticSplit extends RenderShiftedBox {
-  RenderStaticSplit({
+class RenderSplit extends RenderShiftedBox {
+  RenderSplit({
     double spacing = 0.0,
   })  : _spacing = spacing,
         super(null);

@@ -71,7 +71,7 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
       child: Consumer<FlippyController>(
         builder: (context, controller, child) {
           if (controller.status == FlippyViewStatus.ready) {
-            return StaticSplit(
+            return Split(
               child: widget.widgetBuilder(context, controller.current),
               spacing: widget.spacing,
             );

@@ -15,6 +15,6 @@ class FlippyStatic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StaticSplit(child: child, spacing: spacing);
+    return Split(child: child, spacing: spacing);
   }
 }
