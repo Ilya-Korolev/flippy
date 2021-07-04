@@ -13,5 +13,15 @@ class FlippyTransition {
     this.duration = const Duration(seconds: 1),
   });
 
+  FlippyTransition reversed() {
+    final direction = this.direction == FlipDirection.forward ? FlipDirection.backward : FlipDirection.forward;
+
+    return FlippyTransition(
+      direction: direction,
+      curve: this.curve,
+      duration: this.duration,
+    );
+  }
+
   const FlippyTransition.basic() : this();
 }

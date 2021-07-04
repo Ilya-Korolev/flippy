@@ -8,6 +8,7 @@ class FlippyView extends StatefulWidget {
   late final FlippyController flippyController;
   late final Widget Function(BuildContext context, int index) widgetBuilder;
   late final FlippyTransition Function(int index) transitionBuilder;
+  final bool autoReverse;
   final double spacing;
   final double perspective;
 
@@ -15,6 +16,7 @@ class FlippyView extends StatefulWidget {
     required this.flippyController,
     required this.widgetBuilder,
     required this.transitionBuilder,
+    this.autoReverse = true,
     this.spacing = 0.0,
     this.perspective = 0.0,
     Key? key,
@@ -76,7 +78,10 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
             );
           }
 
-          final transition = widget.transitionBuilder(controller.current);
+          final transition = widget.autoReverse && controller.status == FlippyStatus.movingToPrevious
+              ? widget.transitionBuilder(controller.current).reversed()
+              : widget.transitionBuilder(controller.current);
+
           final animation = _buildAnimation(transition);
 
           final current = widget.widgetBuilder(context, controller.current);
