@@ -19,6 +19,14 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
+        },
+        {
+            "name": "counter debug",
+            "cwd": "examples\\counter",
+            "program": "lib\\main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
         }
     ]
 }
