@@ -18,7 +18,7 @@ void main() {
         child: FlippyView.builder(
           perspective: 0.002,
           spacing: 7.5,
-          flippyController: FlippyController(count: children.length)..moveTo(children.length - 1),
+          flippyController: FlippyCountedController()..moveBy(children.length - 1),
           widgetBuilder: (_, index) => children[index],
           transitionBuilder: (index) => const FlippyTransition(duration: Duration(milliseconds: 1000)),
         ),
@@ -30,8 +30,36 @@ void main() {
         await tester.pump(Duration(milliseconds: 1001));
       }
 
-      final finder = find.text('$i');
-      expect(finder, findsWidgets);
+      expect(find.text('$i'), findsWidgets);
+    }
+  });
+
+  testWidgets('FlippyView.builder shows transitions between some widgets one by one', (WidgetTester tester) async {
+    final children = [
+      Container(height: 100, width: 100, child: Text('0')),
+      Container(height: 100, width: 100, child: Text('1')),
+      Container(height: 100, width: 100, child: Text('2')),
+    ];
+
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: FlippyView.builder(
+          perspective: 0.002,
+          spacing: 7.5,
+          flippyController: FlippyLoopedController(count: children.length)..moveForwardTo(children.length - 1),
+          widgetBuilder: (_, index) => children[index],
+          transitionBuilder: (index) => const FlippyTransition(duration: Duration(milliseconds: 1000)),
+        ),
+      ),
+    );
+
+    for (var i = 0; i < children.length; ++i) {
+      if (i != 0) {
+        await tester.pump(Duration(milliseconds: 1001));
+      }
+
+      expect(find.text('$i'), findsWidgets);
     }
   });
 }

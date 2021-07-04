@@ -1,5 +1,5 @@
+import 'package:flippy/src/controllers/controllers.dart';
 import 'package:flippy/src/models/models.dart';
-import 'package:flippy/src/utils/utils.dart';
 import 'package:flippy/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
 
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        final internalController = widget.flippyController as FlippyControllerInternal;
+        final internalController = widget.flippyController as UpdateNotifier;
 
         internalController.update();
       }
@@ -69,7 +69,7 @@ class _FlippyViewState extends State<FlippyView> with TickerProviderStateMixin {
       value: widget.flippyController,
       child: Consumer<FlippyController>(
         builder: (context, controller, child) {
-          if (controller.status == FlippyViewStatus.ready) {
+          if (controller.status == FlippyStatus.idling) {
             return Split(
               child: widget.widgetBuilder(context, controller.current),
               spacing: widget.spacing,

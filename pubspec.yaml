@@ -17,3 +17,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  equatable: ^2.0.3

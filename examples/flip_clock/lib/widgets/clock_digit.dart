@@ -28,11 +28,11 @@ class ClockDigit extends StatefulWidget {
 }
 
 class _ClockDigitState extends State<ClockDigit> {
-  late final FlippyController _flippyController;
+  late final FlippyLoopedController _flippyController;
 
   @override
   void initState() {
-    _flippyController = FlippyController(count: 2);
+    _flippyController = FlippyLoopedController(count: 2);
     super.initState();
   }
 
@@ -60,7 +60,9 @@ class _ClockDigitState extends State<ClockDigit> {
           final nextDigit = _getDigit(state.time.add(const Duration(seconds: 1)));
 
           _flippyController.setTo(0);
-          _flippyController.moveNext();
+          _flippyController.toNext();
+
+          print(_flippyController.status);
 
           return FlippyView.builder(
             spacing: params.digitSpacing,
