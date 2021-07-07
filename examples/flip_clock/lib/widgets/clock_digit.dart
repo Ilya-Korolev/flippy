@@ -1,10 +1,11 @@
-import 'package:flip_clock/models/models.dart';
 import 'package:flippy/flippy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flip_clock/cubit/clock_cubit.dart';
-import 'package:flip_clock/widgets/digit_card.dart';
 import 'package:provider/provider.dart';
+
+import '../cubit/clock_cubit.dart';
+import '../models/models.dart';
+import 'widgets.dart';
 
 enum ClockDigitType {
   hourFirst,
@@ -28,11 +29,11 @@ class ClockDigit extends StatefulWidget {
 }
 
 class _ClockDigitState extends State<ClockDigit> {
-  late final FlippyLoopedController _flippyController;
+  late final FlippyCountedController _flippyController;
 
   @override
   void initState() {
-    _flippyController = FlippyLoopedController(count: 2);
+    _flippyController = FlippyCountedController();
     super.initState();
   }
 
@@ -46,9 +47,14 @@ class _ClockDigitState extends State<ClockDigit> {
   Widget build(BuildContext context) {
     return Consumer<ClockParams>(
       builder: (context, params, _) => BlocBuilder<ClockCubit, ClockState>(
-        buildWhen: _buildWhen,
+        buildWhen: (previous, current) {
+          final currentTime = current.time;
+          final nextTime = current.time.add(const Duration(seconds: 1));
+
+          return _getDigit(currentTime) != _getDigit(nextTime);
+        },
         builder: (context, state) {
-          final currentDigit = _getDigit(state.time);
+          final currentDigit = _getDigit(state.time).toString();
 
           if (state is ClockStopped) {
             return Split(
@@ -57,20 +63,16 @@ class _ClockDigitState extends State<ClockDigit> {
             );
           }
 
-          final nextDigit = _getDigit(state.time.add(const Duration(seconds: 1)));
+          final nextDigit = _getDigit(state.time.add(const Duration(seconds: 1))).toString();
 
           _flippyController.setTo(0);
           _flippyController.toNext();
-
-          print(_flippyController.status);
 
           return FlippyView.builder(
             spacing: params.digitSpacing,
             perspective: params.digitPerspective,
             flippyController: _flippyController,
-            widgetBuilder: (context, index) {
-              return index == 0 ? DigitCard(text: currentDigit) : DigitCard(text: nextDigit);
-            },
+            widgetBuilder: (context, index) => DigitCard(text: index == 0 ? currentDigit : nextDigit),
             transitionBuilder: (index) => const FlippyTransition(
               curve: Curves.decelerate,
               duration: Duration(seconds: 1),
@@ -81,50 +83,25 @@ class _ClockDigitState extends State<ClockDigit> {
     );
   }
 
-  bool _buildWhen(ClockState previous, ClockState current) {
-    final currentTime = current.time;
-    final nextTime = current.time.add(Duration(seconds: 1));
-
+  int _getDigit(DateTime time) {
     switch (widget.type) {
       case ClockDigitType.hourFirst:
-        return currentTime.hour ~/ 10 != nextTime.hour ~/ 10;
+        return time.hour ~/ 10;
 
       case ClockDigitType.hourLast:
-        return currentTime.hour != nextTime.hour;
+        return time.hour % 10;
 
       case ClockDigitType.minuteFirst:
-        return currentTime.minute ~/ 10 != nextTime.minute ~/ 10;
+        return time.minute ~/ 10;
 
       case ClockDigitType.minuteLast:
-        return currentTime.minute != nextTime.minute;
+        return time.minute % 10;
 
       case ClockDigitType.secondFirst:
-        return currentTime.second ~/ 10 != nextTime.second ~/ 10;
+        return time.second ~/ 10;
 
       case ClockDigitType.secondLast:
-        return currentTime.second != nextTime.second;
-    }
-  }
-
-  String _getDigit(DateTime time) {
-    switch (widget.type) {
-      case ClockDigitType.hourFirst:
-        return (time.hour ~/ 10).toString();
-
-      case ClockDigitType.hourLast:
-        return (time.hour % 10).toString();
-
-      case ClockDigitType.minuteFirst:
-        return (time.minute ~/ 10).toString();
-
-      case ClockDigitType.minuteLast:
-        return (time.minute % 10).toString();
-
-      case ClockDigitType.secondFirst:
-        return (time.second ~/ 10).toString();
-
-      case ClockDigitType.secondLast:
-        return (time.second % 10).toString();
+        return time.second % 10;
     }
   }
 }
