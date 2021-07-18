@@ -316,10 +316,10 @@ class RenderSplitFlap extends RenderBox
     final firstChildSize = _layoutChild(firstChild!, constraints: childConstraints, dry: dry);
     final lastChildSize = _layoutChild(lastChild!, constraints: childConstraints, dry: dry);
 
-    final size = Size(
-      math.max(firstChildSize.width, lastChildSize.width),
-      math.max(firstChildSize.height, lastChildSize.height) + spacing,
-    );
+    final width = math.max(firstChildSize.width, lastChildSize.width);
+    final height = math.min(math.max(firstChildSize.height, lastChildSize.height) + spacing, constraints.maxHeight);
+
+    final size = Size(width, height);
 
     return size;
   }

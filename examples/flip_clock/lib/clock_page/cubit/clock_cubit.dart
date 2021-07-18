@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flip_clock/utils/utils.dart';
+
+import '../utils/utils.dart';
 
 part 'clock_state.dart';
 

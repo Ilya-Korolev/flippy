@@ -95,18 +95,18 @@ class RenderSplit extends RenderShiftedBox {
       return const Size(0.0, 0.0);
     }
 
-    final maxHeight = constraints.maxHeight - spacing;
+    final maxChildHeight = constraints.maxHeight - spacing;
+    final minChildHeight = math.min(constraints.minHeight, maxChildHeight);
+
     final childConstraints = constraints.copyWith(
-      maxHeight: maxHeight,
-      minHeight: math.min(constraints.minHeight, maxHeight),
+      maxHeight: maxChildHeight,
+      minHeight: minChildHeight,
     );
 
     final childSize = _performChildLayout(constraints: childConstraints, dry: dry);
+    final height = math.min(childSize.height + spacing, constraints.maxHeight);
 
-    final size = Size(
-      childSize.width,
-      childSize.height + spacing,
-    );
+    final size = Size(childSize.width, height);
 
     return size;
   }
