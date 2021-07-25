@@ -12,12 +12,12 @@ class CounterPage extends StatefulWidget {
 }
 
 class _CounterPageState extends State<CounterPage> {
-  late final FlippyCountedController _flippyController;
+  late final FlippySimpleController _flippyController;
   late final NumberFormat _formatter;
 
   @override
   void initState() {
-    _flippyController = FlippyCountedController();
+    _flippyController = FlippySimpleController();
     _formatter = NumberFormat('00');
     super.initState();
   }

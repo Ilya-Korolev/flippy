@@ -10,7 +10,7 @@ void main() {
     group('initial state', () {
       const expected = FlippyControllerState(current: 0, vector: 0, next: 0, target: 0, status: FlippyStatus.idling);
       test('state should start at $expected', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         final actual = FlippyControllerUtils.getState(controller);
         expect(actual, expected);
@@ -28,7 +28,7 @@ void main() {
       };
 
       test('state should be equal to ${expected[1]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.toNext();
 
@@ -37,7 +37,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[2]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.setTo(-5);
         controller.toNext();
@@ -47,7 +47,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[3]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.toNext();
         controller.toNext();
@@ -57,7 +57,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[4]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.toNext();
@@ -68,7 +68,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[5]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.toNext();
@@ -80,7 +80,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[6]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.toNext();
@@ -103,7 +103,7 @@ void main() {
       };
 
       test('state should be equal to ${expected[1]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.toPrevious();
 
@@ -112,7 +112,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[2]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.setTo(-5);
         controller.toPrevious();
@@ -122,7 +122,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[3]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.toPrevious();
         controller.toPrevious();
@@ -132,7 +132,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[4]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.toPrevious();
@@ -143,7 +143,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[5]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.toPrevious();
@@ -155,7 +155,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[6]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.toPrevious();
@@ -195,7 +195,7 @@ void main() {
       };
 
       test('state should be equal to ${expected[1]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.moveBy(1);
 
@@ -204,7 +204,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[2]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.moveBy(0);
 
@@ -213,7 +213,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[3]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.moveBy(-1);
 
@@ -222,7 +222,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[4]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.setTo(-5);
         controller.moveBy(3);
@@ -232,7 +232,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[5]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.setTo(-5);
         controller.moveBy(-3);
@@ -242,7 +242,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[6]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.moveBy(5);
 
@@ -251,7 +251,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[7]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.moveBy(-5);
 
@@ -260,7 +260,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[8]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.moveBy(5);
         controller.moveBy(10);
@@ -270,7 +270,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[9]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.moveBy(-5);
         controller.moveBy(-10);
@@ -280,7 +280,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[10]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(1);
@@ -291,7 +291,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[11]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(-1);
@@ -302,7 +302,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[12]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(1);
@@ -314,7 +314,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[13]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(-1);
@@ -326,7 +326,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[14]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(5);
@@ -337,7 +337,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[15]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(-5);
@@ -348,7 +348,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[16]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(5);
@@ -360,7 +360,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[17]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(-5);
@@ -372,7 +372,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[18]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(4);
@@ -384,7 +384,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[19]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(-4);
@@ -396,7 +396,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[20]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(3);
@@ -409,7 +409,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[21]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(-3);
@@ -422,7 +422,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[22]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(3);
@@ -436,7 +436,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[23]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.moveBy(-3);
@@ -460,7 +460,7 @@ void main() {
       };
 
       test('state should be equal to ${expected[1]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.setTo(0);
         final actual = FlippyControllerUtils.getState(controller);
@@ -468,7 +468,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[2]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.setTo(8);
 
@@ -477,7 +477,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[3]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.setTo(5);
@@ -488,7 +488,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[4]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
 
         controller.setTo(-6);
 
@@ -497,7 +497,7 @@ void main() {
       });
 
       test('state should be equal to ${expected[5]}', () {
-        final controller = FlippyCountedController();
+        final controller = FlippySimpleController();
         final updater = controller as UpdateNotifier;
 
         controller.setTo(-10);

@@ -16,8 +16,8 @@ abstract class FlippyController with ChangeNotifier {
   FlippyStatus get status;
 }
 
-abstract class FlippyCountedController extends FlippyController {
-  factory FlippyCountedController() => FlippyCountedControllerInternal();
+abstract class FlippySimpleController extends FlippyController {
+  factory FlippySimpleController() => FlippySimpleControllerInternal();
 
   void toNext();
   void toPrevious();
@@ -27,7 +27,7 @@ abstract class FlippyCountedController extends FlippyController {
   void setTo(int index);
 }
 
-abstract class FlippyLoopedController extends FlippyCountedController {
+abstract class FlippyLoopedController extends FlippySimpleController {
   factory FlippyLoopedController({required int length}) => FlippyLoopedControllerInternal(length: length);
 
   int get length;

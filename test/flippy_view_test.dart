@@ -18,7 +18,7 @@ void main() {
         child: FlippyView.builder(
           perspective: 0.002,
           spacing: 7.5,
-          flippyController: FlippyCountedController()..moveBy(children.length - 1),
+          flippyController: FlippySimpleController()..moveBy(children.length - 1),
           widgetBuilder: (_, index) => children[index],
           transitionBuilder: (index) => const FlippyTransition(duration: Duration(milliseconds: 1000)),
         ),

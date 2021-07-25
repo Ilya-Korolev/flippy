@@ -35,11 +35,11 @@ class ClockDigit extends StatefulWidget {
 }
 
 class _ClockDigitState extends State<ClockDigit> {
-  late final FlippyCountedController _flippyController;
+  late final FlippySimpleController _flippyController;
 
   @override
   void initState() {
-    _flippyController = FlippyCountedController();
+    _flippyController = FlippySimpleController();
     super.initState();
   }
 

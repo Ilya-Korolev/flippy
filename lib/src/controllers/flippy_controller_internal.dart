@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'controllers.dart';
 
-class FlippyCountedControllerInternal extends UpdateNotifier implements FlippyCountedController {
-  FlippyCountedControllerInternal();
+class FlippySimpleControllerInternal extends UpdateNotifier implements FlippySimpleController {
+  FlippySimpleControllerInternal();
 
   int _current = 0;
   int _vector = 0;
@@ -67,7 +67,7 @@ class FlippyCountedControllerInternal extends UpdateNotifier implements FlippyCo
   }
 }
 
-class FlippyLoopedControllerInternal extends FlippyCountedControllerInternal implements FlippyLoopedController {
+class FlippyLoopedControllerInternal extends FlippySimpleControllerInternal implements FlippyLoopedController {
   FlippyLoopedControllerInternal({required int length})
       : assert(length > 0),
         _length = length,
