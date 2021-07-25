@@ -1,8 +1,8 @@
 name: flippy
-description: A new Flutter package project.
+description: A customizable split-flap Flutter widget.
 version: 0.0.1
 author:
-homepage:
+homepage: https://github.com/Ilya-Korolev/flippy
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
