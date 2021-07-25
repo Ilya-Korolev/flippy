@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'controllers.dart';
 
 class FlippySimpleControllerInternal extends UpdateNotifier implements FlippySimpleController {

@@ -20,8 +20,8 @@ class FlippyView extends StatefulWidget {
     this.spacing = 0.0,
     this.perspective = 0.0,
     Key? key,
-  })  : assert(spacing >= 0),
-        assert(perspective >= 0),
+  })  : assert(spacing >= 0.0),
+        assert(perspective >= 0.0),
         super(key: key);
 
   @override
