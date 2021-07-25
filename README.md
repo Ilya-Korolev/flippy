@@ -1,14 +1,41 @@
-# flippy
+# Flippy
 
-A new Flutter package project.
+A customizable split-flap Flutter widget.
 
 ## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+```dart
+  late final FlippySimpleController _controller;
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+  @override
+  void initState() {
+    _controller = FlippySimpleController();
+    _controller.moveBy(9);
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: FlippyView.builder(
+          perspective: 0.004,
+          spacing: 3.0,
+          flippyController: _controller,
+          widgetBuilder: (context, index) => Container(
+            color: Colors.blueAccent,
+            child: Text(index.toString(), style: TextStyle(fontSize: 100.0)),
+          ),
+          transitionBuilder: (index) => const FlippyTransition(duration: Duration(seconds: 1)),
+        ),
+      ),
+    );
+  }
+```
