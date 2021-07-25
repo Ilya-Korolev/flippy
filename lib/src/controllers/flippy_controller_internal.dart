@@ -68,36 +68,36 @@ class FlippyCountedControllerInternal extends UpdateNotifier implements FlippyCo
 }
 
 class FlippyLoopedControllerInternal extends FlippyCountedControllerInternal implements FlippyLoopedController {
-  FlippyLoopedControllerInternal({required int count})
-      : assert(count > 0),
-        _count = count,
+  FlippyLoopedControllerInternal({required int length})
+      : assert(length > 0),
+        _length = length,
         super();
 
-  final int _count;
-  int get count => _count;
+  final int _length;
+  int get length => _length;
 
-  int get target => (current + vector) % count;
+  int get target => (current + vector) % length;
 
   int get next {
     final next = current + vector.sign;
 
-    if (next >= count) {
+    if (next >= length) {
       return 0;
     } else if (next < 0) {
-      return count - 1;
+      return length - 1;
     } else {
       return next;
     }
   }
 
   void setTo(int index) {
-    assert(0 <= index && index <= count - 1);
+    assert(0 <= index && index <= length - 1);
 
     super.setTo(index);
   }
 
   void moveForwardTo(int index) {
-    assert(0 <= index && index <= count - 1);
+    assert(0 <= index && index <= length - 1);
 
     if (status != FlippyStatus.idling) {
       return;
@@ -106,7 +106,7 @@ class FlippyLoopedControllerInternal extends FlippyCountedControllerInternal imp
     if (index == current) {
       return;
     } else if (index < current) {
-      _vector = count + index - current;
+      _vector = length + index - current;
     } else if (index > current) {
       _vector = index - current;
     }
@@ -115,7 +115,7 @@ class FlippyLoopedControllerInternal extends FlippyCountedControllerInternal imp
   }
 
   void moveBackwardTo(int index) {
-    assert(0 <= index && index <= count - 1);
+    assert(0 <= index && index <= length - 1);
 
     if (status != FlippyStatus.idling) {
       return;
@@ -126,7 +126,7 @@ class FlippyLoopedControllerInternal extends FlippyCountedControllerInternal imp
     } else if (index < current) {
       _vector = index - current;
     } else if (index > current) {
-      _vector = -count + index - current;
+      _vector = -length + index - current;
     }
 
     notifyListeners();
@@ -141,8 +141,8 @@ class FlippyLoopedControllerInternal extends FlippyCountedControllerInternal imp
         ++_current;
         --_vector;
 
-        if (current >= count) {
-          _current -= count;
+        if (current >= length) {
+          _current -= length;
         }
         break;
 
@@ -151,7 +151,7 @@ class FlippyLoopedControllerInternal extends FlippyCountedControllerInternal imp
         ++_vector;
 
         if (current < 0) {
-          _current += _count;
+          _current += _length;
         }
         break;
     }

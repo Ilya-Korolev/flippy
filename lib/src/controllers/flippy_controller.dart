@@ -28,9 +28,9 @@ abstract class FlippyCountedController extends FlippyController {
 }
 
 abstract class FlippyLoopedController extends FlippyCountedController {
-  factory FlippyLoopedController({required int count}) => FlippyLoopedControllerInternal(count: count);
+  factory FlippyLoopedController({required int length}) => FlippyLoopedControllerInternal(length: length);
 
-  int get count;
+  int get length;
 
   void moveForwardTo(int index);
   void moveBackwardTo(int index);
